@@ -29,6 +29,8 @@ services:
     networks:
       sw_docker:
         ipv4_address: 10.100.111.47
+    ports:
+      - "3306:3306"
 
   app_es:
     build: dev-ops/docker/containers/elastic-search
