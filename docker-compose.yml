@@ -13,10 +13,11 @@ services:
       TERM: xterm
       COMPOSER_CACHE_DIR: /var/www/composer-cache-dir
     ports:
-      - "80:80"
+      - "81:81"
+      - "444:444"
     networks:
       sw_docker:
-        ipv4_address: 10.100.111.46
+        ipv4_address: 10.100.112.46
 
   app_mysql:
     build: dev-ops/docker/containers/mysql
@@ -28,9 +29,9 @@ services:
       MYSQL_PASSWORD: app
     networks:
       sw_docker:
-        ipv4_address: 10.100.111.47
+        ipv4_address: 10.100.112.47
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
   app_es:
     build: dev-ops/docker/containers/elastic-search
@@ -38,14 +39,14 @@ services:
       - ./dev-ops/docker/containers/elastic-search/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./dev-ops/docker/_volumes/app-es-data:/usr/share/elasticsearch/data
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "9201:9200"
+      - "9301:9300"
     environment:
       TERM: xterm
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
       sw_docker:
-        ipv4_address: 10.100.111.48
+        ipv4_address: 10.100.112.48
 
   app_redis:
     build: dev-ops/docker/containers/redis
@@ -53,7 +54,7 @@ services:
       - ./dev-ops/docker/_volumes/app-redisdata:/data
     networks:
       sw_docker:
-        ipv4_address: 10.100.111.49
+        ipv4_address: 10.100.112.49
 
 networks:
   sw_docker:
@@ -61,5 +62,5 @@ networks:
     ipam:
       driver: default
       config:
-      - subnet: 10.100.111.0/24
-        gateway: 10.100.111.1
+      - subnet: 10.100.112.0/24
+        gateway: 10.100.112.1
